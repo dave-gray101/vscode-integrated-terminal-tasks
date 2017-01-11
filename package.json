@@ -1,0 +1,111 @@
+{
+    "name": "integrated-terminal-tasks",
+    "displayName": "Integrated Terminal Tasks",
+    "description": "Clone of the built-in task system, but makes use of the integrated terminal for interactivity",
+    "version": "1.1.0",
+    "publisher": "ntc",
+    "engines": {
+        "vscode": "^1.6.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:integratedTerminalTasks.pick"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "Integrated Terminal Task configuration",
+            "properties": {
+                "integratedTerminalTasks.defaultShell": {
+                    "type": "object",
+                    "description": "Default shells to use when running commands if the task doesn't override this",
+                    "properties": {
+                        "default": {
+                            "type": "string",
+                            "description": "Default shell to use when running commands. Used if no specific OS override matches",
+                            "default": "sh"
+                        },
+                        "windows": {
+                            "type": "string",
+                            "description": "Default shell to use when running commands on Windows"
+                        },
+                        "mac": {
+                            "type": "string",
+                            "description": "Default shell to use when running commands on Mac"
+                        },
+                        "linux": {
+                            "type": "string",
+                            "description": "Default shell to use when running commands on Linux"
+                        },
+                        "args": {
+                            "type": "object",
+                            "description": "Arguments to apply to the default shell if the task doesn't override this",
+                            "properties": {
+                                "default": {
+                                    "type": "array",
+                                    "description": "Default shell arguments to use. Used if no specific OS override matches",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "windows": {
+                                    "type": "array",
+                                    "description": "Default shell arguments to use on Windows",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "mac": {
+                                    "type": "array",
+                                    "description": "Default shell arguments to use on Mac",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "linux": {
+                                    "type": "array",
+                                    "description": "Default shell arguments to use on Linux",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "integratedTerminalTasks.taskFileName": {
+                    "type": "string",
+                    "default": "integrated-terminal-tasks.json",
+                    "description": "Default file name to use in the .vscode directory that contains the tasks to run"
+                }
+            }
+        },
+        "commands": [{
+            "command": "integratedTerminalTasks.pick",
+            "title": "Run Integrated Terminal Task"
+        }],
+        "keybindings": [
+            {
+                "command": "integratedTerminalTasks.pick",
+                "key": "ctrl+shift+i",
+                "mac": "cmd+shift+i"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "compile": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0",
+        "mocha": "^2.3.3",
+        "@types/node": "^6.0.40",
+        "@types/mocha": "^2.2.32"
+    }
+}
